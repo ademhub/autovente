@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoVente - Annonces de voitures</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>AutoVente</h1>
+  <p class="subtitle">Annonces partagées entre tous les vendeurs — aucun compte requis</p>
+  <button id="btnOpenAdd" class="btn btn-primary">+ Ajouter une annonce</button>
+</header>
+
+<main>
+  <section class="toolbar">
+    <input type="search" id="search" placeholder="Rechercher (marque, modèle, vendeur...)">
+    <select id="filterMarque">
+      <option value="">Toutes les marques</option>
+    </select>
+    <select id="filterStatut">
+      <option value="">Tous les statuts</option>
+      <option value="disponible">Disponible</option>
+      <option value="en_attente">En attente</option>
+      <option value="vendu">Vendu</option>
+    </select>
+    <select id="sort">
+      <option value="recent">Plus récentes</option>
+      <option value="prix-asc">Prix croissant</option>
+      <option value="prix-desc">Prix décroissant</option>
+    </select>
+  </section>
+
+  <section id="grid" class="grid"></section>
+  <p id="empty" class="empty hidden">Aucune annonce pour le moment. Soyez le premier à en ajouter une !</p>
+</main>
+
+<!-- Modal ajout -->
+<div id="addModal" class="modal hidden">
+  <div class="modal-content">
+    <button class="modal-close" data-close>&times;</button>
+    <h2 id="addModalTitle">Nouvelle annonce</h2>
+    <form id="addForm">
+      <div id="existingImages" class="existing-images hidden"></div>
+      <div class="form-row">
+        <label>Votre nom (vendeur) *
+          <input type="text" name="vendeur" required maxlength="60">
+        </label>
+      </div>
+      <div class="form-row two-col">
+        <label>Marque *
+          <input type="text" name="marque" required maxlength="40">
+        </label>
+        <label>Modèle *
+          <input type="text" name="modele" required maxlength="40">
+        </label>
+      </div>
+      <div class="form-row two-col">
+        <label>Année
+          <input type="number" name="annee" min="1950" max="2100">
+        </label>
+        <label>Kilométrage
+          <input type="number" name="kilometrage" min="0">
+        </label>
+      </div>
+      <div class="form-row two-col">
+        <label>Carburant
+          <select name="carburant">
+            <option value="">-</option>
+            <option>Essence</option>
+            <option>Diesel</option>
+            <option>Hybride</option>
+            <option>Électrique</option>
+            <option>GPL</option>
+          </select>
+        </label>
+        <label>Transmission
+          <select name="transmission">
+            <option value="">-</option>
+            <option>Manuelle</option>
+            <option>Automatique</option>
+          </select>
+        </label>
+      </div>
+      <div class="form-row two-col">
+        <label>Prix (€) *
+          <input type="number" name="prix" required min="0" step="1">
+        </label>
+        <label>Statut
+          <select name="statut">
+            <option value="disponible">Disponible</option>
+            <option value="en_attente">En attente</option>
+            <option value="vendu">Vendu</option>
+          </select>
+        </label>
+      </div>
+      <div class="form-row">
+        <label>Caractéristiques / Description
+          <textarea name="description" rows="3" maxlength="1000"></textarea>
+        </label>
+      </div>
+      <div class="form-row">
+        <label>Note (remarque libre sur l'état du véhicule)
+          <textarea name="note" rows="2" maxlength="500"></textarea>
+        </label>
+      </div>
+      <div class="form-row">
+        <label id="imagesLabel">Photos
+          <input type="file" name="images" id="imagesInput" accept="image/*" multiple>
+        </label>
+        <div id="imagePreview" class="image-preview hidden"></div>
+        <button type="button" id="scanBtn" class="btn-ai">
+          <span class="ai-icon">✨</span>
+          <span class="ai-btn-text">Remplir automatiquement avec l'IA</span>
+        </button>
+        <div id="scanResult" class="scan-result hidden"></div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" id="addSubmitBtn" class="btn btn-primary">Publier l'annonce</button>
+      </div>
+      <p id="addError" class="error hidden"></p>
+    </form>
+  </div>
+</div>
+
+<!-- Modal détail -->
+<div id="detailModal" class="modal hidden">
+  <div class="modal-content">
+    <button class="modal-close" data-close>&times;</button>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

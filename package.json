@@ -1,0 +1,14 @@
+{
+  "name": "gestion-de-auto",
+  "version": "1.0.0",
+  "description": "Site de gestion de vente de voitures - annonces partagees sans compte",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.19.2",
+    "multer": "^2.0.0"
+  }
+}
